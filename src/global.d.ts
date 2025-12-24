@@ -5,20 +5,36 @@ declare namespace wezterm {
   function font_with_fallback(fonts: (string | { family: string, weight?: string })[]): any
   function config_builder(): Config
   /** @noSelf */
-  function action_callback(cb: (window: Window, pane: Pane) => void): any
+  function action_callback(cb: (window: Window, pane: Pane, ...args: any[]) => void): any
+  /** @noSelf */
+  function on(event: string, callback: (...args: any[]) => any): void
 
   const action: {
     CopyTo: (destination: string) => any
     ClearSelection: any
     (opts: { PasteFrom: string }): any
+    PromptInputLine: (opts: {
+      description: string
+      action: any
+    }) => any
   }
 
   interface Window {
     get_selection_text_for_pane: (pane: Pane) => string
     perform_action: (action: any, pane: Pane) => void
+    active_tab: () => Tab
   }
 
-  interface Pane {}
+  interface Tab {
+    set_title: (title: string) => void
+  }
+
+  interface Pane {
+    get_current_working_dir: () => {
+      file_path?: string
+      path?: string
+    } | undefined
+  }
 
   interface Config {
     window_decorations?: string
