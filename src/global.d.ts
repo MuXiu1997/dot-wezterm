@@ -4,6 +4,21 @@ declare namespace wezterm {
   /** @noSelf */
   function font_with_fallback(fonts: (string | { family: string, weight?: string })[]): any
   function config_builder(): Config
+  /** @noSelf */
+  function action_callback(cb: (window: Window, pane: Pane) => void): any
+
+  const action: {
+    CopyTo: (destination: string) => any
+    ClearSelection: any
+    (opts: { PasteFrom: string }): any
+  }
+
+  interface Window {
+    get_selection_text_for_pane: (pane: Pane) => string
+    perform_action: (action: any, pane: Pane) => void
+  }
+
+  interface Pane {}
 
   interface Config {
     window_decorations?: string
@@ -30,5 +45,6 @@ declare namespace wezterm {
     enable_scroll_bar?: boolean
     scrollback_lines?: number
     default_prog?: string[]
+    mouse_bindings?: any[]
   }
 }
