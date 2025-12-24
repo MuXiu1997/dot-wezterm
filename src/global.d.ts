@@ -17,6 +17,23 @@ declare namespace wezterm {
       description: string
       action: any
     }) => any
+    ActivateKeyTable: (opts: {
+      name: string
+      one_shot?: boolean
+      until_unknown?: boolean
+      timeout_milliseconds?: number
+      prevent_fallback?: boolean
+    }) => any
+    SendKey: (opts: { key: string, mods?: string }) => any
+    SpawnTab: (domain: string | { DomainName: string }) => any
+    TogglePaneZoomState: any
+    PaneSelect: (opts: { alphabet?: string }) => any
+    ActivateCommandPalette: any
+    SplitVertical: (opts: { domain: string | { DomainName: string } }) => any
+    SplitHorizontal: (opts: { domain: string | { DomainName: string } }) => any
+    ActivateTabRelative: (offset: number) => any
+    Multiple: (actions: any[]) => any
+    AdjustPaneSize: (args: [string, number]) => any
   }
 
   interface Window {
@@ -27,13 +44,26 @@ declare namespace wezterm {
 
   interface Tab {
     set_title: (title: string) => void
+    panes_with_info: () => PaneInfo[]
+    active_pane: () => Pane
   }
 
   interface Pane {
+    pane_id: () => number
+    activate: () => void
     get_current_working_dir: () => {
       file_path?: string
       path?: string
     } | undefined
+  }
+
+  interface PaneInfo {
+    pane: Pane
+    left: number
+    top: number
+    width: number
+    height: number
+    is_active: boolean
   }
 
   interface Config {
@@ -62,5 +92,7 @@ declare namespace wezterm {
     scrollback_lines?: number
     default_prog?: string[]
     mouse_bindings?: any[]
+    keys?: any[]
+    key_tables?: Record<string, any[]>
   }
 }
