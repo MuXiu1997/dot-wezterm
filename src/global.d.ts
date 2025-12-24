@@ -8,6 +8,14 @@ declare namespace wezterm {
   function action_callback(cb: (window: Window, pane: Pane, ...args: any[]) => void): any
   /** @noSelf */
   function on(event: string, callback: (...args: any[]) => any): void
+  /** @noSelf */
+  function format(elements: any[]): string
+  /** @noSelf */
+  function strftime(format: string): string
+  /** @noSelf */
+  function hostname(): string
+  /** @noSelf */
+  function active_window(): Window
 
   const action: {
     CopyTo: (destination: string) => any
@@ -40,12 +48,44 @@ declare namespace wezterm {
     get_selection_text_for_pane: (pane: Pane) => string
     perform_action: (action: any, pane: Pane) => void
     active_tab: () => Tab
+    active_workspace: () => string
+    active_key_table: () => string | undefined
+    mux_window: () => MuxWindow
+    set_left_status: (status: string) => void
+    set_right_status: (status: string) => void
   }
 
+  interface MuxWindow {
+    tabs: () => MuxTab[]
+  }
+
+  interface MuxTab {
+    tab_id: () => number
+  }
+
+  // Represents a Tab object with methods
   interface Tab {
     set_title: (title: string) => void
     panes_with_info: () => PaneInfo[]
     active_pane: () => Pane
+    tab_id: number
+  }
+
+  interface TabInformation {
+    tab_id: number
+    tab_index: number
+    is_active: boolean
+    active_pane: PaneInformation
+    tab_title?: string
+    get_title: () => string
+    get_size: () => { is_zoomed: boolean }
+  }
+
+  interface PaneInformation {
+    pane_id: number
+    title: string
+    is_active: boolean
+    is_zoomed: boolean
   }
 
   interface Pane {
@@ -55,6 +95,7 @@ declare namespace wezterm {
       file_path?: string
       path?: string
     } | undefined
+    title: string
   }
 
   interface PaneInfo {
@@ -94,5 +135,13 @@ declare namespace wezterm {
     mouse_bindings?: any[]
     keys?: any[]
     key_tables?: Record<string, any[]>
+    status_update_interval?: number
+    colors?: {
+      tab_bar?: {
+        background?: string
+        new_tab?: { fg_color?: string, bg_color?: string }
+        new_tab_hover?: { fg_color?: string, bg_color?: string }
+      }
+    }
   }
 }
