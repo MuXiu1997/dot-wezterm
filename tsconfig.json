@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["esnext"],
+    "rootDir": "src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": ["lua-types/5.4"],
+    "strict": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "tstl": {
+    "luaTarget": "5.4",
+    "noImplicitGlobalVariables": true,
+    "sourceMapTraceback": true
+  }
+}
+

@@ -1,0 +1,27 @@
+{
+  "name": "dot-wezterm",
+  "type": "module",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.23.0",
+  "description": "My WezTerm configuration.",
+  "author": "MuXiu1997 <muxiu1997@muxiu1997.com> (https://github.com/MuXiu1997/)",
+  "license": "MIT",
+  "homepage": "https://github.com/MuXiu1997/dot-wezterm#readme",
+  "keywords": [],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tstl",
+    "dev": "tstl --watch",
+    "lint": "eslint --fix . && tsc --noEmit"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "6.7.1",
+    "eslint": "9.39.2",
+    "lua-types": "2.13.1",
+    "typescript": "5.9.3",
+    "typescript-to-lua": "1.33.0"
+  }
+}
+
