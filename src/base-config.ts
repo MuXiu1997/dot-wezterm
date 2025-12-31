@@ -1,10 +1,14 @@
 /** @noSelfInFile */
 
+import { luaRequire } from './lua-require'
+
+const w = luaRequire<typeof wezterm>('wezterm')
+
 export function apply_to_config(config: wezterm.Config): void {
   config.window_decorations = 'RESIZE' // 🇨🇳窗口装饰样式
   config.color_scheme = 'nord' // 🇨🇳配色方案
 
-  config.font = wezterm.font_with_fallback([ // 🇨🇳字体列表
+  config.font = w.font_with_fallback([ // 🇨🇳字体列表
     'JetBrains Mono',
     'Symbols Nerd Font Mono',
     'Source Han Sans CN',

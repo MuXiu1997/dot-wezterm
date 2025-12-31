@@ -1,7 +1,10 @@
 /** @noSelfInFile */
 
 import type { Direction } from './navigation-helpers'
+import { luaRequire } from '../lua-require'
 import { navigate_pane_with_wrap } from './navigation-helpers'
+
+const w = luaRequire<typeof wezterm>('wezterm')
 
 type DirectionKey = 'h' | 'j' | 'k' | 'l'
 type Mode = 'tmux_mode' | 'tmux_tab_navigation_mode' | 'tmux_pane_navigation_mode' | 'tmux_pane_resize_mode'
@@ -16,7 +19,7 @@ const direction_keys: Record<Direction, DirectionKey> = {
 }
 
 function activate_key_table(mode: Mode): any {
-  return wezterm.action.ActivateKeyTable({
+  return w.action.ActivateKeyTable({
     name: mode,
     one_shot: true,
     timeout_milliseconds: repeat_time,
@@ -47,25 +50,25 @@ export function apply_to_config(config: wezterm.Config): void {
     {
       key: 'a',
       mods: 'CTRL',
-      action: wezterm.action.SendKey({ key: 'a', mods: 'CTRL' }),
+      action: w.action.SendKey({ key: 'a', mods: 'CTRL' }),
     },
     // Create new tab 🇨🇳新建标签页
     {
       key: 'c',
       mods: 'NONE',
-      action: wezterm.action.SpawnTab('CurrentPaneDomain'),
+      action: w.action.SpawnTab('CurrentPaneDomain'),
     },
     // Toggle pane zoom 🇨🇳窗格缩放
     {
       key: 'z',
       mods: 'NONE',
-      action: wezterm.action.TogglePaneZoomState,
+      action: w.action.TogglePaneZoomState,
     },
     // Pane selector 🇨🇳窗格选择器
     {
       key: 'q',
       mods: 'NONE',
-      action: wezterm.action.PaneSelect({
+      action: w.action.PaneSelect({
         alphabet: '1234567890',
       }),
     },
@@ -74,26 +77,26 @@ export function apply_to_config(config: wezterm.Config): void {
     {
       key: 'p',
       mods: 'NONE',
-      action: wezterm.action.ActivateCommandPalette,
+      action: w.action.ActivateCommandPalette,
     },
 
     // Split pane vertically 🇨🇳垂直分割窗格
     {
       key: '-',
       mods: 'NONE',
-      action: wezterm.action.SplitVertical({ domain: 'CurrentPaneDomain' }),
+      action: w.action.SplitVertical({ domain: 'CurrentPaneDomain' }),
     },
 
     // Split pane horizontally 🇨🇳水平分割窗格
     {
       key: '_',
       mods: 'NONE',
-      action: wezterm.action.SplitHorizontal({ domain: 'CurrentPaneDomain' }),
+      action: w.action.SplitHorizontal({ domain: 'CurrentPaneDomain' }),
     },
     {
       key: '|',
       mods: 'NONE',
-      action: wezterm.action.SplitHorizontal({ domain: 'CurrentPaneDomain' }),
+      action: w.action.SplitHorizontal({ domain: 'CurrentPaneDomain' }),
     },
   ])
 
@@ -104,8 +107,8 @@ export function apply_to_config(config: wezterm.Config): void {
       return {
         key: direction_keys[dir],
         mods: 'CTRL',
-        action: wezterm.action.Multiple([
-          wezterm.action.ActivateTabRelative(offset),
+        action: w.action.Multiple([
+          w.action.ActivateTabRelative(offset),
           activate_key_table('tmux_tab_navigation_mode'),
         ]),
       }
@@ -121,7 +124,7 @@ export function apply_to_config(config: wezterm.Config): void {
       return {
         key: direction_keys[dir],
         mods: 'NONE',
-        action: wezterm.action.Multiple([
+        action: w.action.Multiple([
           navigate_pane_with_wrap(dir),
           activate_key_table('tmux_pane_navigation_mode'),
         ]),
@@ -138,8 +141,8 @@ export function apply_to_config(config: wezterm.Config): void {
       return {
         key: direction_keys[dir].toUpperCase(),
         mods: 'SHIFT',
-        action: wezterm.action.Multiple([
-          wezterm.action.AdjustPaneSize([dir, 2]),
+        action: w.action.Multiple([
+          w.action.AdjustPaneSize([dir, 2]),
           activate_key_table('tmux_pane_resize_mode'),
         ]),
       }

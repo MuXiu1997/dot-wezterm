@@ -1,5 +1,9 @@
 /** @noSelfInFile */
 
+import { luaRequire } from '../lua-require'
+
+const w = luaRequire<typeof wezterm>('wezterm')
+
 export type Direction = 'Left' | 'Right' | 'Up' | 'Down'
 
 // ============================================================================
@@ -213,7 +217,7 @@ function get_next_pane_in_direction(tab: wezterm.Tab, current_pane: wezterm.Pane
  * @returns WezTerm action callback function
  */
 export function navigate_pane_with_wrap(dir: Direction): any {
-  return wezterm.action_callback((win, pane) => {
+  return w.action_callback((win, pane) => {
     const tab = win.active_tab()
     const next_pane = get_next_pane_in_direction(tab, pane, dir)
 

@@ -1,26 +1,20 @@
 /** @noSelfInFile */
 
 declare namespace wezterm {
-  /** @noSelf */
   function font_with_fallback(fonts: (string | { family: string, weight?: string })[]): any
   function config_builder(): Config
-  /** @noSelf */
   function action_callback(cb: (window: Window, pane: Pane, ...args: any[]) => void): any
-  /** @noSelf */
   function on(event: string, callback: (...args: any[]) => any): void
-  /** @noSelf */
   function format(elements: any[]): string
-  /** @noSelf */
   function strftime(format: string): string
-  /** @noSelf */
   function hostname(): string
-  /** @noSelf */
   function active_window(): Window
 
-  const action: {
+  /** @noSelf */
+  interface Action {
+    (opts: { PasteFrom: string }): any
     CopyTo: (destination: string) => any
     ClearSelection: any
-    (opts: { PasteFrom: string }): any
     PromptInputLine: (opts: {
       description: string
       action: any
@@ -43,6 +37,8 @@ declare namespace wezterm {
     Multiple: (actions: any[]) => any
     AdjustPaneSize: (args: [string, number]) => any
   }
+
+  const action: Action
 
   interface Window {
     get_selection_text_for_pane: (pane: Pane) => string

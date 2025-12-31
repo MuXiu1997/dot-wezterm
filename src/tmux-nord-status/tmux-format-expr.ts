@@ -1,7 +1,10 @@
 /** @noSelfInFile */
 
+import { luaRequire } from '../lua-require'
 import { is_blank, truncate_string } from './helpers'
 import { NordColors } from './nord-theme-colors'
+
+const w = luaRequire<typeof wezterm>('wezterm')
 
 // ============================================================================
 // Type Definitions
@@ -147,7 +150,7 @@ const tmux_variables: Record<string, (ctx: FormatContext) => string> = {
   // Get session name (using workspace name)
   S: ctx => ctx.window?.active_workspace() || 'main',
   // Get hostname
-  H: () => wezterm.hostname() || 'localhost',
+  H: () => w.hostname() || 'localhost',
   // Get tab index
   I: ctx => String(ctx.tab?.tab_index ?? 0),
   // Get tab title
@@ -198,8 +201,8 @@ const tmux_variables: Record<string, (ctx: FormatContext) => string> = {
 }
 
 const special_variables: Record<string, (ctx: FormatContext) => string> = {
-  NORD_TMUX_STATUS_DATE_FORMAT: _ctx => wezterm.strftime('%Y-%m-%d'),
-  NORD_TMUX_STATUS_TIME_FORMAT: _ctx => wezterm.strftime('%H:%M:%S'),
+  NORD_TMUX_STATUS_DATE_FORMAT: _ctx => w.strftime('%Y-%m-%d'),
+  NORD_TMUX_STATUS_TIME_FORMAT: _ctx => w.strftime('%H:%M:%S'),
   prefix_highlight: (ctx) => {
     const key_table = ctx.window?.active_key_table()
     if (key_table) {

@@ -1,20 +1,24 @@
 /** @noSelfInFile */
 
+import { luaRequire } from './lua-require'
+
+const w = luaRequire<typeof wezterm>('wezterm')
+
 // Smart Right-Click Copy/Paste Functionality
 // When text is selected: Copy the selected content and clear the selection
 // When no text is selected: Paste content from clipboard
 function smart_right_click_handler(): any {
-  return wezterm.action_callback((window, pane) => {
+  return w.action_callback((window, pane) => {
     const has_selection = window.get_selection_text_for_pane(pane) !== ''
 
     if (has_selection) {
       // Has selected text: Copy to clipboard and clear selection
-      window.perform_action(wezterm.action.CopyTo('ClipboardAndPrimarySelection'), pane)
-      window.perform_action(wezterm.action.ClearSelection, pane)
+      window.perform_action(w.action.CopyTo('ClipboardAndPrimarySelection'), pane)
+      window.perform_action(w.action.ClearSelection, pane)
     }
     else {
       // No selected text: Paste from clipboard
-      window.perform_action(wezterm.action({
+      window.perform_action(w.action({
         PasteFrom: 'Clipboard',
       }), pane)
     }

@@ -1,13 +1,17 @@
 /** @noSelfInFile */
 
+import { luaRequire } from './lua-require'
+
+const w = luaRequire<typeof wezterm>('wezterm')
+
 export function apply_to_config(_config: wezterm.Config): void {
-  wezterm.on('augment-command-palette', (_window, _pane) => {
+  w.on('augment-command-palette', (_window, _pane) => {
     return [
       {
         brief: 'Rename Tab',
-        action: wezterm.action.PromptInputLine({
+        action: w.action.PromptInputLine({
           description: 'Enter new name for tab',
-          action: wezterm.action_callback((win, _pane, line) => {
+          action: w.action_callback((win, _pane, line) => {
             if (line) {
               win.active_tab().set_title(line)
             }
@@ -16,7 +20,7 @@ export function apply_to_config(_config: wezterm.Config): void {
       },
       {
         brief: 'Set Tab to Directory Name',
-        action: wezterm.action_callback((win, p) => {
+        action: w.action_callback((win, p) => {
           const cwd = p.get_current_working_dir()
           if (cwd) {
             const cwd_path = cwd.file_path || cwd.path || String(cwd)

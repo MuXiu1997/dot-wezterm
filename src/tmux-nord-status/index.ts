@@ -1,7 +1,10 @@
 /** @noSelfInFile */
 
+import { luaRequire } from '../lua-require'
 import { NordColors } from './nord-theme-colors'
 import * as TmuxFormatExpr from './tmux-format-expr'
+
+const w = luaRequire<typeof wezterm>('wezterm')
 
 const left_status_format_expr = TmuxFormatExpr.define_tmux_format_expr(
   '#[fg=black,bg=blue,bold] #S #[fg=blue,bg=black,nobold,noitalics,nounderscore]',
@@ -20,16 +23,16 @@ const current_tab_title_format_expr = TmuxFormatExpr.define_tmux_format_expr(
 export function apply_to_config(config: wezterm.Config): void {
   config.status_update_interval = 250
 
-  wezterm.on('update-status', (window, _pane) => {
-    window.set_left_status(wezterm.format(left_status_format_expr.eval({
+  w.on('update-status', (window, _pane) => {
+    window.set_left_status(w.format(left_status_format_expr.eval({
       window,
     })))
-    window.set_right_status(wezterm.format(right_status_format_expr.eval({
+    window.set_right_status(w.format(right_status_format_expr.eval({
       window,
     })))
   })
 
-  wezterm.on('format-tab-title', (tab: wezterm.TabInformation, _tabs, _panes, _config, _hover, max_width) => {
+  w.on('format-tab-title', (tab: wezterm.TabInformation, _tabs, _panes, _config, _hover, max_width) => {
     if (!tab.is_active) {
       return tab_title_format_expr.eval({
         tab,
