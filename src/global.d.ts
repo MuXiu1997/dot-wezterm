@@ -33,7 +33,10 @@ declare namespace wezterm {
     ActivateCommandPalette: any
     SplitVertical: (opts: { domain: string | { DomainName: string } }) => any
     SplitHorizontal: (opts: { domain: string | { DomainName: string } }) => any
+    ActivateTab: (index: number) => any
     ActivateTabRelative: (offset: number) => any
+    ShowTabNavigator: any
+    ShowLauncherArgs: (opts: { flags: string, titles?: string }) => any
     Multiple: (actions: any[]) => any
     AdjustPaneSize: (args: [string, number]) => any
   }

@@ -153,7 +153,7 @@ const tmux_variables: Record<string, (ctx: FormatContext) => string> = {
   // Get hostname
   H: () => w.hostname() || 'localhost',
   // Get tab index
-  I: ctx => String(ctx.tab?.tab_index ?? 0),
+  I: ctx => String((ctx.tab?.tab_index ?? 0) + 1),
   // Get tab title
   W: (ctx) => {
     if (!ctx.tab) {

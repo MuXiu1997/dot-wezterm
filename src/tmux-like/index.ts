@@ -80,6 +80,13 @@ export function apply_to_config(config: wezterm.Config): void {
       action: w.action.ActivateCommandPalette,
     },
 
+    // Interactive Tab selector(Prefix + w) 🇨🇳交互式标签页选择器
+    {
+      key: 'w',
+      mods: 'NONE',
+      action: w.action.ShowLauncherArgs({ flags: 'FUZZY|TABS' }),
+    },
+
     // Split pane vertically 🇨🇳垂直分割窗格
     {
       key: '-',
@@ -99,6 +106,17 @@ export function apply_to_config(config: wezterm.Config): void {
       action: w.action.SplitHorizontal({ domain: 'CurrentPaneDomain' }),
     },
   ])
+
+  // Quick tab jump (Prefix + 1-9, 0) 🇨🇳快速标签页跳转
+  ;[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    .map((i) => {
+      return {
+        key: i.toString().slice(-1),
+        mods: 'NONE',
+        action: w.action.ActivateTab(i - 1),
+      }
+    })
+    .forEach((bind) => { key_table_tmux.push(bind) })
 
   // Tab navigation 🇨🇳标签页导航
   ;(['Left', 'Right'] as Direction[])
