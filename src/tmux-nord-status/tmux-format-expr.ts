@@ -1,8 +1,9 @@
 /** @noSelfInFile */
 
 import { luaRequire } from '../lua-require'
-import { is_blank, truncate_string } from './helpers'
+import { is_blank } from './helpers'
 import { NordColors } from './nord-theme-colors'
+import { truncate_string } from './utf8-helpers'
 
 const w = luaRequire<typeof wezterm>('wezterm')
 
