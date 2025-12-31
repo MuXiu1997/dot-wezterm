@@ -150,7 +150,7 @@ export function apply_to_config(config: wezterm.Config): void {
     })
 
   config.key_tables = {
-    ...config.key_tables,
+    ...(config.key_tables ?? {}),
     tmux_mode: key_table_tmux,
     tmux_tab_navigation_mode: key_table_tmux_tab_navigation,
     tmux_pane_navigation_mode: key_table_tmux_pane_navigation,
