@@ -18,20 +18,19 @@
 ### Prerequisites
 
 - [WezTerm](https://wezterm.org/)
-- [Node.js](https://nodejs.org/) (v22+ recommended)
-- [pnpm](https://pnpm.io/)
+- [Bun](https://bun.sh/)
 
 ### Workflow
 
 1. **Clone and Setup**:
    ```bash
    git clone https://github.com/MuXiu1997/dot-wezterm.git .
-   pnpm install
+   bun install
    ```
 
 2. **Build**:
-   - `pnpm run build`: One-time compilation.
-   - `pnpm run dev`: Watch mode for active development.
+   - `bun run build`: One-time compilation.
+   - `bun run dev`: Watch mode for active development.
 
 ### Automated Deployment
 
