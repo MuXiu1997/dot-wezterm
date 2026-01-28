@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      BUN_OPTIONS: --bun
     steps:
       - name: Checkout
         uses: actions/checkout@v4
