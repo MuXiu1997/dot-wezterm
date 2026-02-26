@@ -9,9 +9,7 @@ export function apply_to_config(config: wezterm.Config): void {
   config.color_scheme = 'nord' // 🇨🇳配色方案
 
   config.font = w.font_with_fallback([ // 🇨🇳字体列表
-    'JetBrains Mono',
-    'Symbols Nerd Font Mono',
-    'Source Han Sans CN',
+    'Maple Mono Muxiu1997 NF CN', // https://github.com/MuXiu1997/maple-font-custom
   ])
   config.font_size = 14.0 // 🇨🇳字体大小
   config.line_height = 1.0 // 🇨🇳行高
