@@ -1,0 +1,9 @@
+[tools]
+bun = "1.3.8"
+
+[env]
+_.path = [ "{{ config_root }}/node_modules/.bin", ]
+
+[tasks."local:deploy"]
+description = "Build and deploy configuration to local ~/.config/wezterm"
+run = "rm -rf dist && bun run build && rsync -av --delete --delete-excluded dist/ ~/.config/wezterm"
