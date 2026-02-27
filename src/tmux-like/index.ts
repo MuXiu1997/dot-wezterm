@@ -72,6 +72,18 @@ export function apply_to_config(config: wezterm.Config): void {
         alphabet: '1234567890',
       }),
     },
+    // Close current pane 🇨🇳关闭当前窗格
+    {
+      key: 'x',
+      mods: 'NONE',
+      action: w.action.CloseCurrentPane({ confirm: true }),
+    },
+    // Enter copy mode 🇨🇳进入复制模式
+    {
+      key: 'm',
+      mods: 'NONE',
+      action: w.action.ActivateCopyMode,
+    },
 
     // Activate command palette 🇨🇳激活命令面板
     {

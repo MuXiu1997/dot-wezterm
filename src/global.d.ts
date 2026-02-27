@@ -39,6 +39,8 @@ declare namespace wezterm {
     ShowLauncherArgs: (opts: { flags: string, titles?: string }) => any
     Multiple: (actions: any[]) => any
     AdjustPaneSize: (args: [string, number]) => any
+    CloseCurrentPane: (opts: { confirm: boolean }) => any
+    ActivateCopyMode: any
   }
 
   const action: Action
