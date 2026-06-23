@@ -148,6 +148,26 @@ export function apply_to_config(config: wezterm.Config): void {
       key_table_tmux_tab_navigation.push(bind)
     })
 
+  // Tab reorder 🇨🇳移动当前标签页顺序
+  ;[
+    { key: '{', offset: -1 },
+    { key: '}', offset: 1 },
+  ]
+    .map(({ key, offset }) => {
+      return {
+        key,
+        mods: 'NONE',
+        action: w.action.Multiple([
+          w.action.MoveTabRelative(offset),
+          activate_key_table('tmux_tab_navigation_mode'),
+        ]),
+      }
+    })
+    .forEach((bind) => {
+      key_table_tmux.push(bind)
+      key_table_tmux_tab_navigation.push(bind)
+    })
+
   // Pane navigation 🇨🇳窗格导航
   ;(['Left', 'Down', 'Up', 'Right'] as Direction[])
     .map((dir) => {

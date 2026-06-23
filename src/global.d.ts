@@ -35,6 +35,7 @@ declare namespace wezterm {
     SplitHorizontal: (opts: { domain: string | { DomainName: string } }) => any
     ActivateTab: (index: number) => any
     ActivateTabRelative: (offset: number) => any
+    MoveTabRelative: (offset: number) => any
     ShowTabNavigator: any
     ShowLauncherArgs: (opts: { flags: string, titles?: string }) => any
     Multiple: (actions: any[]) => any
